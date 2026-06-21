@@ -1,0 +1,15 @@
+numpy
+pandas
+scipy
+scikit-learn
+xgboost
+matplotlib
+seaborn
+dill
+joblib
+tqdm
+fastapi
+uvicorn
+jinja2
+python-multipart
+

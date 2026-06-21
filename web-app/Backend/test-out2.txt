@@ -1,0 +1,66 @@
+﻿Connected
+node : ERROR_STACK: 
+TypeError: next is 
+not a function
+At line:1 char:1
++ node test-db.js 
+2>&1 | Out-File 
+-Encoding utf8 
+test-out2.txt
++ ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (ERROR_STAC   
+ K: Ty... not a fu    
+nction:String) []    
+, RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+    at 
+model.<anonymous> (fil
+e:///C:/a.Kurukshatra/
+NeuroBright/NeuroAdapt
+iveLearning/Backend/mo
+dels/User.js:33:5)
+    at async 
+Kareem.execPre (C:\a.K
+urukshatra\NeuroBright
+\NeuroAdaptiveLearning
+\Backend\node_modules\
+kareem\index.js:70:24)
+    at async 
+model.$__save (C:\a.Ku
+rukshatra\NeuroBright\
+NeuroAdaptiveLearning\
+Backend\node_modules\m
+ongoose\lib\model.js:3
+76:5)
+    at async 
+model.save (C:\a.Kuruk
+shatra\NeuroBright\Neu
+roAdaptiveLearning\Bac
+kend\node_modules\mong
+oose\lib\model.js:642:
+5)
+    at async C:\a.Kuru
+kshatra\NeuroBright\Ne
+uroAdaptiveLearning\Ba
+ckend\node_modules\mon
+goose\lib\model.js:277
+8:9
+    at async 
+Promise.all (index 0)
+    at async 
+Function.create (C:\a.
+Kurukshatra\NeuroBrigh
+t\NeuroAdaptiveLearnin
+g\Backend\node_modules
+\mongoose\lib\model.js
+:2763:11)
+    at async file:///C
+:/a.Kurukshatra/NeuroB
+right/NeuroAdaptiveLea
+rning/Backend/test-db.
+js:10:13

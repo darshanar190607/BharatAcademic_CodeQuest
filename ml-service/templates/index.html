@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuroadaptive EEG Emotion Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #c33;
+        }
+        .info-box {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #555;
+        }
+        .wave-bands {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .wave-band {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .wave-band strong {
+            display: block;
+            color: #667eea;
+            font-size: 12px;
+        }
+        .wave-band span {
+            font-size: 11px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Neuroadaptive EEG Emotion Detection</h1>
+        <p class="subtitle">Enter EEG brainwave band power values to predict emotional state</p>
+        
+        {% if error %}
+        <div class="error">
+            <strong>Error:</strong> {{ error }}
+        </div>
+        {% endif %}
+        
+        <div class="info-box">
+            <strong>ℹ️ About EEG Bands:</strong> Enter the mean power values for each brainwave frequency band. Typical values range from 0.0 to 1.0 (normalized).
+        </div>
+        
+        <form method="post" action="/predict">
+            <div class="form-group">
+                <label for="delta">Delta Wave (0.5-4 Hz) - Deep Sleep</label>
+                <input type="number" step="0.001" name="delta" id="delta" required placeholder="e.g., 0.25">
+            </div>
+            
+            <div class="form-group">
+                <label for="theta">Theta Wave (4-8 Hz) - Drowsiness</label>
+                <input type="number" step="0.001" name="theta" id="theta" required placeholder="e.g., 0.30">
+            </div>
+            
+            <div class="form-group">
+                <label for="alpha">Alpha Wave (8-13 Hz) - Relaxation</label>
+                <input type="number" step="0.001" name="alpha" id="alpha" required placeholder="e.g., 0.35">
+            </div>
+            
+            <div class="form-group">
+                <label for="beta">Beta Wave (13-30 Hz) - Active Thinking</label>
+                <input type="number" step="0.001" name="beta" id="beta" required placeholder="e.g., 0.40">
+            </div>
+            
+            <div class="form-group">
+                <label for="gamma">Gamma Wave (30-45 Hz) - High Cognition</label>
+                <input type="number" step="0.001" name="gamma" id="gamma" required placeholder="e.g., 0.45">
+            </div>
+            
+            <button type="submit" class="btn">🔮 Predict Emotion</button>
+        </form>
+        
+        <div class="wave-bands">
+            <div class="wave-band">
+                <strong>δ Delta</strong>
+                <span>0.5-4 Hz</span>
+            </div>
+            <div class="wave-band">
+                <strong>θ Theta</strong>
+                <span>4-8 Hz</span>
+            </div>
+            <div class="wave-band">
+                <strong>α Alpha</strong>
+                <span>8-13 Hz</span>
+            </div>
+            <div class="wave-band">
+                <strong>β Beta</strong>
+                <span>13-30 Hz</span>
+            </div>
+            <div class="wave-band">
+                <strong>γ Gamma</strong>
+                <span>30-45 Hz</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

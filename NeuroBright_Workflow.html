@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroBright Real-Time Monitoring Cycle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #f8fafc;
+            display: flex; justify-content: center; align-items: center; 
+            min-height: 100vh; padding: 20px; margin: 0;
+            overflow: hidden;
+        }
+        
+        .diagram-canvas { 
+            position: relative; width: 1400px; height: 1300px; 
+            border-radius: 24px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+        }
+        
+        h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+
+        .icon-box { 
+            position: absolute; 
+            width: 64px; height: 64px; 
+            display: flex; align-items: center; justify-content: center; 
+            z-index: 20; 
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .icon-box:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+        }
+        
+        .text-box {
+            position: absolute;
+            z-index: 30;
+            width: 250px;
+            background: #ffffff;
+            border: 1px solid #f1f5f9;
+            padding: 14px 18px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .text-box:hover {
+            border-color: #cbd5e1;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-box h3 { font-weight: 700; color: #0f172a; font-size: 15px; margin-bottom: 4px; letter-spacing: -0.02em; }
+        .text-box p { color: #64748b; font-size: 13px; line-height: 1.4; margin: 0; }
+        
+        /* Central Orb */
+        .center-orb {
+            position: absolute;
+            width: 140px; height: 140px;
+            left: 700px; top: 750px;
+            transform: translate(-50%, -50%);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+        }
+
+        .center-icon-container {
+            width: 90px; height: 90px;
+            background: #ffffff;
+            border-radius: 50%;
+            border: 2px solid #3b82f6;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+            position: relative;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            border: 2px solid #3b82f6;
+            animation: pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        @keyframes dashFlow {
+            from { stroke-dashoffset: 40; }
+            to { stroke-dashoffset: 0; }
+        }
+
+        .data-flow-path {
+            stroke-dasharray: 8 12;
+            animation: dashFlow 1s linear infinite;
+        }
+    </style>
+</head>
+<body>
+
+<div class="diagram-canvas" id="canvas">
+    
+    <!-- Title Area (Pushed down and separated to prevent overlap) -->
+    <div class="absolute top-12 left-0 w-full text-center z-20">
+        <div class="inline-block px-4 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 font-semibold text-sm mb-3">
+            Real-Time Edge Architecture
+        </div>
+        <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">
+            NeuroBright Adaptive Feedback Loop
+        </h1>
+        <p class="text-slate-500 font-medium tracking-wide mt-2 max-w-2xl mx-auto">
+            Continuous EEG acquisition, AI inference, and haptic intervention via the BioAmp & Arduino IoT stack.
+        </p>
+    </div>
+
+    <!-- Central Brain Node -->
+    <div class="center-orb">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring" style="animation-delay: 1.25s"></div>
+        <div class="center-icon-container">
+            <i data-feather="cpu" stroke-width="1.5" width="40" height="40" stroke="#2563eb"></i>
+        </div>
+    </div>
+
+    <!-- SVG Layer for Data Flow Paths -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none" id="arrow-canvas" style="z-index: 5;">
+        <defs>
+            <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8" fill="#94a3b8" />
+            </marker>
+        </defs>
+    </svg>
+
+</div>
+
+<script>
+    const steps = [
+        { title: "Acquire EEG Signal", sub: "BioAmp sensor detects raw brain electrical activity.", icon: "activity", color: "from-emerald-400 to-teal-500" },
+        { title: "Signal Preprocessing", sub: "Filter noise & extract alpha/beta frequency bands.", icon: "filter", color: "from-cyan-400 to-blue-500" },
+        { title: "Edge AI Inference", sub: "Nearest Centroid classifier predicts drowsiness.", icon: "crosshair", color: "from-blue-400 to-indigo-500" },
+        { title: "Cognitive State Check", sub: "System determines if intervention is required.", icon: "git-branch", color: "from-indigo-400 to-violet-500" },
+        { title: "IoT Serial Trigger", sub: "Transmission of alert payload to Arduino UNO R4.", icon: "wifi", color: "from-violet-400 to-purple-500" },
+        { title: "Hardware Actuation", sub: "Activate PWM pin for LED and Vibration Motor.", icon: "zap", color: "from-purple-400 to-fuchsia-500" },
+        { title: "User Haptic Alert", sub: "Physical feedback gently restores user focus.", icon: "bell", color: "from-fuchsia-400 to-pink-500" },
+        { title: "Telemetry Sync", sub: "Sync focus scores & events to React Dashboard.", icon: "server", color: "from-pink-400 to-rose-500" }
+    ];
+
+    const canvas = document.getElementById("canvas");
+    const svgLayer = document.getElementById("arrow-canvas");
+    
+    // Canvas dimensions and variables (Larger spread to prevent overlap)
+    const cx = 700;
+    const cy = 750;
+    const radius = 280;    // Icon circle radius
+    const textDist = 380;  // Text container radius
+    const nodeCount = steps.length;
+    const angleStep = 360 / nodeCount;
+    
+    // Render the nodes dynamically
+    steps.forEach((step, i) => {
+        // Start from top (-90 degrees)
+        let angleDeg = -90 + (i * angleStep);
+        let angleRad = angleDeg * Math.PI / 180;
+        
+        // --- 1. Position the Nodes (Icons)
+        let ix = cx + radius * Math.cos(angleRad);
+        let iy = cy + radius * Math.sin(angleRad);
+        
+        let iconBox = document.createElement("div");
+        iconBox.className = `icon-box bg-gradient-to-br ${step.color}`;
+        iconBox.style.left = ix + "px";
+        iconBox.style.top = iy + "px";
+        iconBox.innerHTML = `<i data-feather="${step.icon}" stroke-width="2" width="28" height="28" stroke="#ffffff"></i>`;
+        canvas.appendChild(iconBox);
+
+        // --- 2. Position the Text Cards
+        let tx = cx + textDist * Math.cos(angleRad);
+        let ty = cy + textDist * Math.sin(angleRad);
+        let textBox = document.createElement("div");
+        textBox.className = "text-box";
+        
+        // Alignment logic to keep it flowing outwards
+        if (Math.abs(tx - cx) < 30) {
+            // Top and Bottom nodes
+            textBox.style.left = tx + "px";
+            textBox.style.top = ty + "px";
+            textBox.style.transform = `translate(-50%, ${ty > cy ? 10 : -110}%)`;
+            textBox.style.textAlign = "center";
+        } else if (tx > cx) {
+            // Right hemisphere
+            textBox.style.left = tx + "px";
+            textBox.style.top = ty + "px";
+            textBox.style.transform = `translate(0, -50%)`;
+            textBox.style.textAlign = "left";
+        } else {
+            // Left hemisphere
+            textBox.style.left = tx + "px";
+            textBox.style.top = ty + "px";
+            textBox.style.transform = `translate(-100%, -50%)`;
+            textBox.style.textAlign = "right";
+        }
+
+        textBox.innerHTML = `<h3>${step.title}</h3><p>${step.sub}</p>`;
+        
+        // Cache original transform for hover logic
+        const origTransform = textBox.style.transform;
+        
+        // Add hover effect that preserves alignment
+        textBox.addEventListener("mouseenter", () => {
+            textBox.style.transform = `${origTransform} scale(1.05)`;
+        });
+        textBox.addEventListener("mouseleave", () => {
+            textBox.style.transform = origTransform;
+        });
+
+        canvas.appendChild(textBox);
+
+        // --- 3. Draw Connecting Arrows (SVG)
+        let gapAngle = 9; // Degree gap so line doesn't hit the glowing circle
+        let a1 = (angleDeg + gapAngle) * Math.PI / 180;
+        let a2 = (angleDeg + angleStep - gapAngle) * Math.PI / 180;
+        
+        let x1 = cx + radius * Math.cos(a1);
+        let y1 = cy + radius * Math.sin(a1);
+        let x2 = cx + radius * Math.cos(a2);
+        let y2 = cy + radius * Math.sin(a2);
+        
+        let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", `M ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2}`);
+        path.className.baseVal = "data-flow-path"; // Add animation class
+        path.setAttribute("stroke", "#94a3b8"); // slate-400
+        path.setAttribute("stroke-width", "2.5");
+        path.setAttribute("fill", "none");
+        path.setAttribute("marker-end", "url(#arrowHead)");
+        
+        svgLayer.appendChild(path);
+    });
+
+    // Initialize Icons
+    feather.replace();
+</script>
+
+</body>
+</html>

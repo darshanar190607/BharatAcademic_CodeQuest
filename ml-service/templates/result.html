@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - Neuroadaptive EEG</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .result-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .emotion-icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+        }
+        .emotion-label {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .confidence {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        .details {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .detail-value {
+            color: #333;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .model-info {
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Emotion Prediction Result</h1>
+        
+        <div class="result-card">
+            <div class="emotion-icon">
+                {% if emotion == "Happy" %}
+                    😊
+                {% elif emotion == "Sad" %}
+                    😢
+                {% elif emotion == "Angry" %}
+                    😠
+                {% elif emotion == "Calm" %}
+                    😌
+                {% else %}
+                    🤔
+                {% endif %}
+            </div>
+            <div class="emotion-label">{{ emotion }}</div>
+            <div class="confidence">Confidence: {{ (confidence * 100)|round(2) }}%</div>
+        </div>
+        
+        <div class="details">
+            <h3 style="margin-bottom: 15px; color: #667eea;">Input EEG Features</h3>
+            <div class="detail-row">
+                <span class="detail-label">Delta (δ):</span>
+                <span class="detail-value">{{ features.delta }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Theta (θ):</span>
+                <span class="detail-value">{{ features.theta }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Alpha (α):</span>
+                <span class="detail-value">{{ features.alpha }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Beta (β):</span>
+                <span class="detail-value">{{ features.beta }}</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Gamma (γ):</span>
+                <span class="detail-value">{{ features.gamma }}</span>
+            </div>
+        </div>
+        
+        <a href="/" class="btn">🔄 Make Another Prediction</a>
+        
+        <div class="model-info">
+            Model Version: {{ model_version }}
+        </div>
+    </div>
+</body>
+</html>

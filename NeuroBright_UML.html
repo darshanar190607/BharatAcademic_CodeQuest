@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroBright UML Class Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #f3f4f6; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            padding: 40px; 
+            margin: 0;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 { color: #1e3a8a; margin: 0; }
+        .header p { color: #4b5563; }
+        .mermaid-container { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 1600px; 
+            overflow-x: auto; 
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>NeuroBright Architecture</h1>
+        <p>UML Class Diagram for EEG-Based Adaptive Learning System</p>
+    </div>
+    
+    <div class="mermaid-container">
+        <div class="mermaid">
+        classDiagram
+            %% Root Component
+            class NeuroBrightManagementSystem {
+                +String systemId
+                +String systemName
+                +String version
+                +processEEGSignal()
+                +analyzeAttention()
+                +triggerActuator()
+                +sendAlert()
+                +updateDashboard()
+            }
+            
+            %% Category 1: Data Capture (Pink/Red)
+            class EEGDataCapture {
+                +String deviceType
+                +String samplingRate
+                +DateTime captureTime
+                +captureSignal()
+                +uploadSignal()
+            }
+            class ArduinoDevice {
+                +String deviceId
+                +String deviceName
+                +String connectivityType
+            }
+            class SerialBridge {
+                +String portName
+                +int baudRate
+            }
+            class BluetoothModule {
+                +String macAddress
+            }
+            class HardwareSensor {
+                +String sensorPin
+            }
+
+            %% Category 2: AI Detection (Blue)
+            class AIDetection {
+                +String modelName
+                +float accuracy
+                +String modelType
+                +loadModel()
+                +predictState()
+                +classifyFocus()
+            }
+            class FastAPIServer {
+                +String endpointUrl
+                +String framework
+                +String version
+                +train()
+                +evaluate()
+                +optimize()
+            }
+            class MLController {
+                +String ipAddress
+                +String firmwareVersion
+                +sendSignal()
+                +receiveData()
+            }
+
+            %% Category 3: Decision Engine (Yellow/Orange)
+            class DecisionEngine {
+                +String decisionId
+                +String stateType
+                +String confidenceLevel
+                +evaluateThreshold()
+                +recommendAction()
+                +generateReport()
+            }
+            class MLModel {
+                +String modelId
+                +String framework
+                +String version
+            }
+            class NearestCentroid {
+                +String distanceMetric
+            }
+            class PretrainedClassifier {
+                +byte[] weights
+            }
+
+            %% Category 4: Database / Persistence (Green)
+            class ServerManagement {
+                +String dbName
+                +String connectionString
+                +storeData()
+                +retrieveData()
+                +updateRecord()
+            }
+            class Database {
+                +String dbHost
+                +String schemaVersion
+                +storeSession()
+                +retrieveHistory()
+                +updateMetrics()
+            }
+            class ActuatorHardware {
+                +String hardwareId
+                +float responseLatency
+                +triggerFeedback()
+                +stopFeedback()
+            }
+
+            %% Category 5: Dashboard UI (Dark Yellow / Orange)
+            class DashboardAnalytics {
+                +AnalyticsEngine
+                +int sessionScore
+                +float focusPercentage
+                +calculateMetrics()
+                +updateScore()
+            }
+            class UserInteraction {
+                +int sessionScore
+                +float focusPercentage
+                +trackProgress()
+                +updateProfile()
+            }
+            class SessionRecord {
+                +String recordId
+                +float elapsedSessionTime
+                +trackImpact()
+                +generateImpactReport()
+            }
+
+            %% Relationships
+            NeuroBrightManagementSystem <|-- EEGDataCapture
+            NeuroBrightManagementSystem <|-- AIDetection
+            NeuroBrightManagementSystem <|-- DecisionEngine
+            NeuroBrightManagementSystem <|-- ServerManagement
+            NeuroBrightManagementSystem <|-- DashboardAnalytics
+
+            %% Data Capture Branch
+            EEGDataCapture <|-- ArduinoDevice
+            EEGDataCapture <|-- SerialBridge
+            ArduinoDevice --> BluetoothModule
+            ArduinoDevice --> HardwareSensor
+
+            %% AI Detection Branch
+            AIDetection <-- FastAPIServer
+            AIDetection <-- MLController
+
+            %% Decision Engine Branch
+            DecisionEngine <|-- MLModel
+            MLModel <|-- NearestCentroid
+            NearestCentroid <|-- PretrainedClassifier
+
+            %% Database Branch
+            ServerManagement <|-- Database
+            Database <|-- ActuatorHardware
+
+            %% Dashboard Branch
+            DashboardAnalytics <-- UserInteraction
+            UserInteraction <-- SessionRecord
+
+            %% Styling
+            %% Base System
+            style NeuroBrightManagementSystem fill:#f8f9fa,stroke:#343a40,stroke-width:2px,color:#000
+            
+            %% Pink/Red (Data Capture)
+            style EEGDataCapture fill:#f8d7da,stroke:#f5c6cb,stroke-width:2px,color:#000
+            style ArduinoDevice fill:#f8d7da,stroke:#f5c6cb,stroke-width:2px,color:#000
+            style SerialBridge fill:#f8d7da,stroke:#f5c6cb,stroke-width:2px,color:#000
+            style BluetoothModule fill:#f8d7da,stroke:#f5c6cb,stroke-width:2px,color:#000
+            style HardwareSensor fill:#f8d7da,stroke:#f5c6cb,stroke-width:2px,color:#000
+
+            %% Blue (AI Detection)
+            style AIDetection fill:#cce5ff,stroke:#b8daff,stroke-width:2px,color:#000
+            style FastAPIServer fill:#cce5ff,stroke:#b8daff,stroke-width:2px,color:#000
+            style MLController fill:#cce5ff,stroke:#b8daff,stroke-width:2px,color:#000
+
+            %% Light Orange/Yellow (Decision Engine & some Dashboard parts)
+            style DecisionEngine fill:#fff3cd,stroke:#ffeeba,stroke-width:2px,color:#000
+            style MLModel fill:#fff3cd,stroke:#ffeeba,stroke-width:2px,color:#000
+            style NearestCentroid fill:#fff3cd,stroke:#ffeeba,stroke-width:2px,color:#000
+            style PretrainedClassifier fill:#fff3cd,stroke:#ffeeba,stroke-width:2px,color:#000
+
+            %% Green (Database / Server Management)
+            style ServerManagement fill:#d4edda,stroke:#c3e6cb,stroke-width:2px,color:#000
+            style Database fill:#d4edda,stroke:#c3e6cb,stroke-width:2px,color:#000
+            style ActuatorHardware fill:#d4edda,stroke:#c3e6cb,stroke-width:2px,color:#000
+
+            %% Darker Yellow/Orange (Dashboard/Analytics)
+            style DashboardAnalytics fill:#ffdf7e,stroke:#ffc107,stroke-width:2px,color:#000
+            style UserInteraction fill:#ffdf7e,stroke:#ffc107,stroke-width:2px,color:#000
+            style SessionRecord fill:#ffdf7e,stroke:#ffc107,stroke-width:2px,color:#000
+            
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                fontFamily: 'Segoe UI, Helvetica, Arial, sans-serif',
+                lineColor: '#6c757d',
+                textColor: '#000000',
+            },
+            class: {
+                useMaxWidth: false,
+                htmlLabels: true
+            } 
+        });
+    </script>
+</body>
+</html>

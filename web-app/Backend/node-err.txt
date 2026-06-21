@@ -1,0 +1,9 @@
+TypeError: next is not a function
+    at model.<anonymous> (file:///C:/a.Kurukshatra/NeuroBright/NeuroAdaptiveLearning/Backend/models/User.js:33:5)
+    at async Kareem.execPre (C:\a.Kurukshatra\NeuroBright\NeuroAdaptiveLearning\Backend\node_modules\kareem\index.js:70:24)
+    at async model.$__save (C:\a.Kurukshatra\NeuroBright\NeuroAdaptiveLearning\Backend\node_modules\mongoose\lib\model.js:376:5)
+    at async model.save (C:\a.Kurukshatra\NeuroBright\NeuroAdaptiveLearning\Backend\node_modules\mongoose\lib\model.js:642:5)
+    at async C:\a.Kurukshatra\NeuroBright\NeuroAdaptiveLearning\Backend\node_modules\mongoose\lib\model.js:2778:9
+    at async Promise.all (index 0)
+    at async Function.create (C:\a.Kurukshatra\NeuroBright\NeuroAdaptiveLearning\Backend\node_modules\mongoose\lib\model.js:2763:11)
+    at async file:///C:/a.Kurukshatra/NeuroBright/NeuroAdaptiveLearning/Backend/test-db.js:11:13

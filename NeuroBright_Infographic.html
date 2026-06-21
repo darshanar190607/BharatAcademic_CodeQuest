@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroBright ML Performance Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; padding: 2rem; }
+        .infographic-container { width: 1200px; margin: 0 auto; background: white; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border: 1px solid #ccc; }
+        
+        /* Banner Styles */
+        .banner { background: linear-gradient(135deg, #1e3a8a, #3b82f6); color: white; padding: 2rem; text-align: center; position: relative; overflow: hidden; }
+        /* Add some abstract shapes to banner */
+        .banner::before { content: ""; position: absolute; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 50%; top: -100px; left: -50px; }
+        .banner::after { content: ""; position: absolute; width: 250px; height: 250px; background: rgba(255,255,255,0.05); border-radius: 50%; bottom: -100px; right: -50px; }
+        
+        .column-header { text-align: center; padding: 1.5rem 1rem; color: white; font-weight: 800; font-size: 1.1rem; height: 100px; display: flex; flex-direction: column; justify-content: center; position: relative; }
+        
+        .col-1 { background-color: #1e3a8a; } /* Deep Blue */
+        .col-2 { background-color: #059669; } /* Emerald */
+        .col-3 { background-color: #d97706; } /* Amber */
+        .col-4 { background-color: #7c3aed; } /* Purple */
+        .col-5 { background-color: #4b5563; } /* Gray */
+
+        .bullet-point { font-size: 0.95rem; margin-bottom: 0.75rem; color: #374151; display: flex; align-items: start; }
+        .bullet-point strong { font-weight: 800; color: #111827; width: 90px; flex-shrink: 0; }
+        .bullet-dot { color: #6b7280; margin-right: 8px; font-size: 1.2rem; line-height: 1; }
+        
+        /* Tiny Bar Chart Styles */
+        .chart-wrapper { border-left: 2px solid #e5e7eb; border-bottom: 2px solid #e5e7eb; height: 150px; display: flex; align-items: flex-end; justify-content: space-around; padding: 0 10px; margin-top: 20px; position: relative; }
+        .chart-wrapper::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background-image: linear-gradient(to bottom, #f3f4f6 1px, transparent 1px); background-size: 100% 25px; z-index: 0; pointer-events: none; opacity: 0.5; }
+        .bar { width: 20%; z-index: 1; border-top-left-radius: 2px; border-top-right-radius: 2px; position: relative; }
+        .chart-labels { display: flex; justify-content: space-around; font-size: 0.75rem; font-weight: 600; color: #4b5563; padding-top: 5px; }
+
+        /* Ribbons */
+        .ribbon { position: absolute; top: 100px; right: -15px; background: #fbbf24; color: #92400e; padding: 5px 10px; font-size: 0.7rem; font-weight: 800; border-radius: 4px; border: 2px solid #b45309; z-index: 10; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transform: rotate(5deg); }
+        .ribbon-green { background: #34d399; color: #064e3b; border-color: #047857; }
+
+        /* Icon Circles */
+        .icon-circle { width: 70px; height: 70px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; position: absolute; top: -35px; left: calc(50% - 35px); border: 4px solid; z-index: 10; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .ic-1 { border-color: #1e3a8a; } .ic-2 { border-color: #059669; } .ic-3 { border-color: #d97706; } .ic-4 { border-color: #7c3aed; } .ic-5 { border-color: #4b5563; }
+        
+        .side-label { writing-mode: vertical-rl; transform: rotate(180deg); text-align: center; font-weight: 800; color: #166534; font-size: 1.1rem; padding: 10px; background: #f0fdf4; border-right: 1px solid #dcfce3; }
+    </style>
+</head>
+<body>
+
+<div class="infographic-container">
+    
+    <!-- Banner -->
+    <div class="banner">
+        <h1 class="text-4xl font-extrabold tracking-tight mb-2">NeuroBright: ML Algorithms Performance Comparison</h1>
+        <p class="text-blue-100 font-semibold text-lg">Evaluating EEG-Based Intelligence Models for Edge Computing</p>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="flex">
+        
+        <!-- Algorithm Data -->
+        <div class="flex-1">
+            <div class="grid grid-cols-5 h-full">
+                
+                <!-- Column 1 -->
+                <div class="border-r border-gray-200 flex flex-col pt-10">
+                    <div class="column-header col-1">
+                        <div class="icon-circle ic-1">🤖</div>
+                        <span>Deep Learning Transformer Model</span>
+                        <div class="ribbon text-center">Highest<br>Accuracy</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between" style="background-color: #f8fafc;">
+                        <div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Accuracy:</strong> 96%</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Speed:</strong> Medium (2-3s)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Memory:</strong> High (800MB)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Power:</strong> High Drain</div>
+                        </div>
+                        <div>
+                            <div class="chart-wrapper">
+                                <div class="bar bg-blue-900" style="height: 96%;" title="Accuracy"></div>
+                                <div class="bar bg-orange-400" style="height: 40%;" title="Speed"></div>
+                                <div class="bar bg-red-600" style="height: 95%;" title="Memory"></div>
+                                <div class="bar bg-red-800" style="height: 90%;" title="Power"></div>
+                            </div>
+                            <div class="chart-labels"><span>Acc</span><span>Spd</span><span>Mem</span><span>Pwr</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="border-r border-gray-200 flex flex-col pt-10">
+                    <div class="column-header col-2">
+                        <div class="icon-circle ic-2">🧠</div>
+                        <span>Custom CNN<br>(Keras)</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between" style="background-color: #ecfdf5;">
+                        <div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Accuracy:</strong> 89%</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Speed:</strong> Fast (1-2s)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Memory:</strong> Medium (250MB)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Power:</strong> Medium</div>
+                        </div>
+                        <div>
+                            <div class="chart-wrapper">
+                                <div class="bar bg-emerald-700" style="height: 89%;" title="Accuracy"></div>
+                                <div class="bar bg-emerald-500" style="height: 65%;" title="Speed"></div>
+                                <div class="bar bg-emerald-400" style="height: 60%;" title="Memory"></div>
+                                <div class="bar bg-emerald-300" style="height: 55%;" title="Power"></div>
+                            </div>
+                            <div class="chart-labels"><span>Acc</span><span>Spd</span><span>Mem</span><span>Pwr</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="border-r border-gray-200 flex flex-col pt-10">
+                    <div class="column-header col-3">
+                        <div class="icon-circle ic-3">⚡</div>
+                        <span>Edge AI Layer<br>(TensorFlow Lite)</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between" style="background-color: #fffbeb;">
+                        <div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Accuracy:</strong> 85%</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Speed:</strong> Very Fast (<1s)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Memory:</strong> Low (50MB)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Power:</strong> Low</div>
+                        </div>
+                        <div>
+                            <div class="chart-wrapper">
+                                <div class="bar bg-amber-600" style="height: 85%;" title="Accuracy"></div>
+                                <div class="bar bg-amber-500" style="height: 85%;" title="Speed"></div>
+                                <div class="bar bg-amber-400" style="height: 25%;" title="Memory"></div>
+                                <div class="bar bg-amber-300" style="height: 30%;" title="Power"></div>
+                            </div>
+                            <div class="chart-labels"><span>Acc</span><span>Spd</span><span>Mem</span><span>Pwr</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 4 -->
+                <div class="border-r border-gray-200 flex flex-col pt-10">
+                    <div class="column-header col-4">
+                        <div class="icon-circle ic-4">🎯</div>
+                        <span>Default Classifier<br>(Nearest Centroid)</span>
+                        <div class="ribbon ribbon-green text-center" style="top:95px; right:-25px;">Best for<br>Arduino Edge</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between" style="background-color: #f5f3ff;">
+                        <div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Accuracy:</strong> 82%</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Speed:</strong> Instant (ms)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Memory:</strong> Ultra Low (1MB)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Power:</strong> Minimal</div>
+                        </div>
+                        <div>
+                            <div class="chart-wrapper">
+                                <div class="bar bg-purple-800" style="height: 82%;" title="Accuracy"></div>
+                                <div class="bar bg-purple-600" style="height: 98%;" title="Speed"></div>
+                                <div class="bar bg-purple-400" style="height: 10%;" title="Memory"></div>
+                                <div class="bar bg-purple-300" style="height: 15%;" title="Power"></div>
+                            </div>
+                            <div class="chart-labels"><span>Acc</span><span>Spd</span><span>Mem</span><span>Pwr</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 5 -->
+                <div class="flex flex-col pt-10">
+                    <div class="column-header col-5">
+                        <div class="icon-circle ic-5">🎲</div>
+                        <span>Simulation Base<br>Mode</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between" style="background-color: #f9fafb;">
+                        <div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Accuracy:</strong> ~33% (Random)</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Speed:</strong> Instant</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Memory:</strong> None</div>
+                            <div class="bullet-point"><span class="bullet-dot">•</span><strong>Power:</strong> Minimal</div>
+                        </div>
+                        <div>
+                            <div class="chart-wrapper">
+                                <div class="bar bg-gray-500" style="height: 33%;" title="Accuracy"></div>
+                                <div class="bar bg-gray-400" style="height: 99%;" title="Speed"></div>
+                                <div class="bar bg-gray-300" style="height: 5%;" title="Memory"></div>
+                                <div class="bar bg-gray-200" style="height: 5%;" title="Power"></div>
+                            </div>
+                            <div class="chart-labels"><span>Acc</span><span>Spd</span><span>Mem</span><span>Pwr</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

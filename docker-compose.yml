@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  ml-service:
+    build: 
+      context: ./ml-service
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./ml-service:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  node-backend:
+    build:
+      context: ./web-app/Backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./web-app/Backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+
+  react-frontend:
+    build:
+      context: ./web-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web-app:/app
+      - /app/node_modules
+    environment:
+      # Use polling for hot reloading on Windows/Docker
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - node-backend
+      - ml-service

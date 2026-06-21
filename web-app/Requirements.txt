@@ -1,0 +1,17 @@
+This project uses the following frontend libraries, which are loaded via CDN in index.html:
+
+# Core Framework
+react@^19.2.0
+react-dom@^19.2.0
+
+# Google AI SDK
+@google/genai (latest version from esm.run)
+
+# 3D Graphics
+three@0.164.1
+
+# Animation
+gsap@3.12.2
+
+# CSS Framework
+tailwindcss (latest version from cdn.tailwindcss.com)
